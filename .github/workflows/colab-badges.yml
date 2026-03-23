@@ -1,0 +1,28 @@
+name: Add Colab Badges
+on:
+  push:
+    paths:
+      - "**.ipynb"
+
+jobs:
+  badges:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add/Update Colab badges
+        uses: trsvchn/colab-badge-action@v4
+        with:
+          target_branch: main
+          target_repository: ${{ github.repository }}
+          check: all
+          update: true
+
+      - name: Commit and Push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Add/Update Colab badges"
+          repository: .
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
