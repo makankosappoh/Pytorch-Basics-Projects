@@ -10,19 +10,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
 
-      - name: Add/Update Colab badges
+      - name: Add/Update badges
         uses: trsvchn/colab-badge-action@v4
         with:
           target_branch: main
-          target_repository: ${{ github.repository }}
+          target_repository: makankosappoh/Pytorch-Basics-Projects
           check: all
           update: true
+          verbose: true
 
       - name: Commit and Push
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Add/Update Colab badges"
-          repository: .
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
